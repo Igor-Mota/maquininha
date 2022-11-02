@@ -38,6 +38,7 @@ import BlankLayout from 'src/@core/layouts/BlankLayout'
 
 // ** Demo Imports
 import FooterIllustrationsV1 from 'src/views/pages/auth/FooterIllustration'
+import { redirect } from 'next/dist/server/api-utils'
 
 interface State {
   password: string
@@ -217,3 +218,13 @@ const LoginPage = () => {
 LoginPage.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>
 
 export default LoginPage
+
+// export const getServerSideProps = () => {
+//   return {
+//     redirect: {
+//       permanent: false,
+//       destination: '/dashboard'
+//     },
+//     props: {}
+//   }
+// }
