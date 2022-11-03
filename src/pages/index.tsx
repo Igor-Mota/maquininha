@@ -69,7 +69,6 @@ const FormControlLabel = styled(MuiFormControlLabel)<FormControlLabelProps>(({ t
 const LoginPage = () => {
   useEffect(() => {
     const { authorization } = parseCookies()
-
     if (authorization) router.push('/dashboard')
   }, [])
 

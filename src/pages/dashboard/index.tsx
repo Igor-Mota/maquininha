@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 import { parseCookies } from 'nookies'
+import { useSession } from '../../@core/hooks/useSession'
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 import { Box, IconButton } from '@mui/material'
@@ -15,6 +16,7 @@ import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
 
 const Dashboard = ({ props }: any) => {
   const { push } = useRouter()
+  useSession()
   return (
     <ApexChartWrapper>
       <Box ml={25} mt={10}>
