@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router'
+import { parseCookies } from 'nookies'
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 import { Box, IconButton } from '@mui/material'
@@ -12,7 +13,7 @@ import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
 
 // ** Demo Components Imports
 
-const Dashboard = () => {
+const Dashboard = ({ props }: any) => {
   const { push } = useRouter()
   return (
     <ApexChartWrapper>
@@ -30,3 +31,10 @@ const Dashboard = () => {
 }
 
 export default Dashboard
+
+export const gerServerSideProps = (ctx: any) => {
+  const { authorization } = parseCookies(ctx)
+  return {
+    props: { authorization }
+  }
+}

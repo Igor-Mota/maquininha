@@ -1,5 +1,8 @@
 // ** React Imports
-import { ChangeEvent, MouseEvent, ReactNode, useState } from 'react'
+
+import { ChangeEvent, FormEvent, MouseEvent, ReactHTMLElement, ReactNode, useEffect, useState } from 'react'
+import { apiLogin } from '../framework/auth/useLogin'
+import { parseCookies, setCookie } from 'nookies'
 
 // ** Next Imports
 import Link from 'next/link'
@@ -64,11 +67,18 @@ const FormControlLabel = styled(MuiFormControlLabel)<FormControlLabelProps>(({ t
 }))
 
 const LoginPage = () => {
+  useEffect(() => {
+    const { authorization } = parseCookies()
+
+    if (authorization) router.push('/dashboard')
+  }, [])
+
   // ** State
   const [values, setValues] = useState<State>({
     password: '',
     showPassword: false
   })
+  const [username, setUsername] = useState('')
 
   // ** Hook
   const theme = useTheme()
@@ -84,6 +94,15 @@ const LoginPage = () => {
 
   const handleMouseDownPassword = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
+  }
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const { data, status } = await apiLogin({ username, password: values.password })
+    if (status === 200) {
+      setCookie(null, 'authorization', `Bearer ${data.data.token}`)
+      router.push('/dashboard')
+    }
   }
 
   return (
@@ -168,8 +187,16 @@ const LoginPage = () => {
               Bem vindo a {themeConfig.templateName}! 👋🏻
             </Typography>
           </Box>
-          <form noValidate autoComplete='off' onSubmit={e => e.preventDefault()}>
-            <TextField autoFocus fullWidth id='email' label='Email' sx={{ marginBottom: 4 }} />
+          <form noValidate autoComplete='off' onSubmit={handleSubmit}>
+            <TextField
+              autoFocus
+              fullWidth
+              id='email'
+              label='Email'
+              sx={{ marginBottom: 4 }}
+              value={username}
+              onChange={e => setUsername(e.target.value)}
+            />
             <FormControl fullWidth>
               <InputLabel htmlFor='auth-login-password'>Senha</InputLabel>
               <OutlinedInput
@@ -195,13 +222,7 @@ const LoginPage = () => {
             <Box
               sx={{ mb: 4, display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'space-between' }}
             ></Box>
-            <Button
-              fullWidth
-              size='large'
-              variant='contained'
-              sx={{ marginBottom: 7 }}
-              onClick={() => router.push('/dashboard')}
-            >
+            <Button fullWidth size='large' variant='contained' sx={{ marginBottom: 7 }} type='submit'>
               Login
             </Button>
             <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}></Box>
@@ -218,13 +239,9 @@ const LoginPage = () => {
 LoginPage.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>
 
 export default LoginPage
-
-// export const getServerSideProps = () => {
-//   return {
-//     redirect: {
-//       permanent: false,
-//       destination: '/dashboard'
-//     },
-//     props: {}
-//   }
-// }
+export const gerServerSideProps = (ctx: any) => {
+  const { authorization } = parseCookies(ctx)
+  return {
+    props: { authorization }
+  }
+}
