@@ -3,7 +3,6 @@ import Head from 'next/head'
 import { Router } from 'next/router'
 import type { NextPage } from 'next'
 import type { AppProps } from 'next/app'
-import { SessionProvider } from 'next-auth/react'
 import { QueryClientProvider, QueryClient } from 'react-query'
 import { AuthContext } from 'src/@core/context/AuthContext'
 // ** Loader Import
