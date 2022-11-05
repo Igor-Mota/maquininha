@@ -1,8 +1,8 @@
 // ** Icon imports
 
 import HomeOutline from 'mdi-material-ui/HomeOutline'
-import { Calendar } from 'mdi-material-ui'
-import { Pen } from 'mdi-material-ui'
+import { Calendar, Pen, Account, FileDocumentMultiple } from 'mdi-material-ui'
+
 // ** Type import
 import { VerticalNavItemsType } from 'src/@core/layouts/types'
 
@@ -14,9 +14,14 @@ const navigation = (): VerticalNavItemsType => {
       path: '/dashboard'
     },
     {
-      title: 'Filtros',
-      icon: Calendar,
-      path: '/filter'
+      title: 'users',
+      icon: Account,
+      path: '/user'
+    },
+    {
+      title: 'Relatorios',
+      icon: FileDocumentMultiple,
+      path: '/reports'
     },
     {
       title: 'Cadastrar',
