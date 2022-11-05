@@ -22,11 +22,6 @@ const navigation = (): VerticalNavItemsType => {
       title: 'Relatorios',
       icon: FileDocumentMultiple,
       path: '/reports'
-    },
-    {
-      title: 'Cadastrar',
-      icon: Pen,
-      path: '/new/report'
     }
   ]
 }
