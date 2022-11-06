@@ -12,9 +12,13 @@ export const apiLogin = async ({ username, password }: apiParams) => {
     const { data, status, ...rest } = await http.post(API_ENDPOINTS.login, { username, password })
 
     return { data, status }
-  } catch (e) {
+  } catch (e: any) {
     //@ts-ignore
-    return e.response.data
+    if (e.response && e.response.data) {
+      return e.response.data
+    } else {
+      return 'errro'
+    }
   }
 }
 

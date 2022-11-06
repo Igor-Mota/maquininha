@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { setCookie, destroyCookie } from 'nookies'
-import { useRefreshToken, fetcher } from '../../framework/auth/useRefreshToken'
+import { fetcher } from '../../framework/auth/useRefreshToken'
 export const useSession = () => {
   const { push } = useRouter()
 

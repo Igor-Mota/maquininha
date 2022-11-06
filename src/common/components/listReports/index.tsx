@@ -1,6 +1,14 @@
 import { Table, TableContainer, TableHead, TableRow, TableCell, TableBody } from '@mui/material'
+import { useGetLatestReports } from 'src/framework/report/useGatLatestReports'
+import { dateFormat } from 'src/utils'
 
-export const ListReports = ({ data }: any) => {
+export const ListReports = () => {
+  const { data, isLoading } = useGetLatestReports()
+
+  if (isLoading) return <></>
+
+  console.log(data)
+
   return (
     <div style={{ maxWidth: '100%' }}>
       <TableContainer>
@@ -8,6 +16,7 @@ export const ListReports = ({ data }: any) => {
           <TableHead>
             <TableRow>
               <TableCell>Numero</TableCell>
+              <TableCell>Taxa</TableCell>
               <TableCell>Jogo</TableCell>
               <TableCell>E.Inicial</TableCell>
               <TableCell>E.Final</TableCell>
@@ -19,18 +28,23 @@ export const ListReports = ({ data }: any) => {
               <TableCell>Data</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
-            <TableCell>Data</TableCell>
-            <TableCell>Data</TableCell>
-            <TableCell>Data</TableCell>
-            <TableCell>Data</TableCell>
-            <TableCell>Data</TableCell>
-            <TableCell>Data</TableCell>
-            <TableCell>Data</TableCell>
-            <TableCell>Data</TableCell>
-            <TableCell>Data</TableCell>
-            <TableCell>Data</TableCell>
-          </TableBody>
+          {data?.data.map((report: any) => {
+            return (
+              <TableBody>
+                <TableCell>{report.machine_number}</TableCell>
+                <TableCell>{report.rate}</TableCell>
+                <TableCell>{report.game}</TableCell>
+                <TableCell>{report.initial_enter}</TableCell>
+                <TableCell>{report.final_enter}</TableCell>
+                <TableCell>{report.total_enters}</TableCell>
+                <TableCell>{report.initial_out}</TableCell>
+                <TableCell>{report.final_out}</TableCell>
+                <TableCell>{report.total_out}</TableCell>
+                <TableCell>{`${report.result}%`}</TableCell>
+                <TableCell>{dateFormat(report.created_at)}</TableCell>
+              </TableBody>
+            )
+          })}
         </Table>
       </TableContainer>
     </div>
