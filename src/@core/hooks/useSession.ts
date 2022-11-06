@@ -15,18 +15,7 @@ export const useSession = () => {
         }
       })
       .catch(err => {
-        fetcher()
-          .then(response => {
-            if (!response.data?.data.token) {
-              destroyCookie(null, 'authorization')
-              setCookie(null, 'authorization', response.data?.data.token)
-              push('/')
-            }
-          })
-          .catch(err => {
-            destroyCookie(null, 'authorization')
-            push('/')
-          })
+        destroyCookie(null, 'authorization')
       })
   }, [])
 }
