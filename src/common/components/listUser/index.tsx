@@ -1,10 +1,7 @@
 import { Table, TableContainer, TableHead, TableRow, TableCell, TableBody, Button, Box } from '@mui/material'
 import { FileEdit, Delete } from 'mdi-material-ui'
 import { useGetUsers } from 'src/framework/user'
-import { EditUser } from '../editUser'
 import Swal from 'sweetalert2'
-import Modal from 'react-modal'
-import { useSettings } from 'src/@core/hooks/useSettings'
 
 export const ListUser = () => {
   const { data, isLoading } = useGetUsers()
@@ -17,10 +14,6 @@ export const ListUser = () => {
       showCancelButton: true
     })
   }
-
-  const { settings, saveSettings } = useSettings()
-
-  saveSettings({ ...settings })
 
   return (
     <div style={{ maxWidth: '100%' }}>
