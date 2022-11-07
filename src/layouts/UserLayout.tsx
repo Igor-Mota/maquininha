@@ -49,7 +49,6 @@ const UserLayout = ({ children }: Props) => {
       </Box>
     )
   }
-
   return (
     <VerticalLayout
       hidden={hidden}
@@ -59,14 +58,16 @@ const UserLayout = ({ children }: Props) => {
       afterVerticalNavMenuContent={UpgradeToProImg}
       verticalAppBarContent={(
         props // AppBar Content
-      ) => (
-        <VerticalAppBarContent
-          hidden={hidden}
-          settings={settings}
-          saveSettings={saveSettings}
-          toggleNavVisibility={props.toggleNavVisibility}
-        />
-      )}
+      ) => {
+        return (
+          <VerticalAppBarContent
+            hidden={hidden}
+            settings={settings}
+            saveSettings={saveSettings}
+            toggleNavVisibility={props.toggleNavVisibility}
+          />
+        )
+      }}
     >
       {children}
     </VerticalLayout>

@@ -5,6 +5,7 @@ import type { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 import { QueryClientProvider, QueryClient } from 'react-query'
 import { AuthContext } from 'src/@core/context/AuthContext'
+import { ToastContainer } from 'react-toastify'
 // ** Loader Import
 import NProgress from 'nprogress'
 
@@ -85,6 +86,7 @@ const App = (props: ExtendedAppProps) => {
           </QueryClientProvider>
         </SettingsProvider>
       </AuthContext>
+      <ToastContainer />
     </CacheProvider>
   )
 }

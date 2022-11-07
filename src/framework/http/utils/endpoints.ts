@@ -2,5 +2,6 @@ export const API_ENDPOINTS = {
   refresh: '/auth/refresh',
   login: '/auth/login',
   newReport: '/report/create',
-  getLatest: '/report/getLatest'
+  getLatest: '/report/getLatest',
+  register_user: '/auth/register'
 }

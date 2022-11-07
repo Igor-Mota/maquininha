@@ -66,6 +66,7 @@ const VerticalLayout = (props: LayoutProps) => {
     <>
       <VerticalLayoutWrapper className='layout-wrapper'>
         {/* Navigation Menu */}
+
         <Navigation
           navWidth={navWidth}
           navVisible={navVisible}

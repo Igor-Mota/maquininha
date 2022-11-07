@@ -7,7 +7,7 @@ import { createUser } from 'src/common/rules/validations'
 import { useRegisterUser } from 'src/framework/auth/useRegisterUser'
 import 'react-toastify/dist/ReactToastify.css'
 
-export const NewUser = () => {
+export const EditUser = () => {
   //
 
   const {
@@ -44,19 +44,18 @@ export const NewUser = () => {
   return (
     <Card
       sx={{
-        width: '80%',
-        margin: '0 auto',
+        width: '100%',
         display: 'flex',
         flexDirection: 'column',
-        padding: 4,
         alignItems: 'center',
         justifyContent: 'space-evenly',
-        py: 8
+        background: '#28243D'
       }}
     >
       <Typography variant='h3' mb={6}>
         Adicionar novo usuario
       </Typography>
+      <Box></Box>
       <form onSubmit={handleSubmit(handleCreateUser)}>
         <Grid container spacing={12} px={10}>
           <Grid item xs={12}>

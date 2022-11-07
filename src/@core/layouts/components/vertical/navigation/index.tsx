@@ -105,6 +105,7 @@ const Navigation = (props: Props) => {
     <Drawer {...props}>
       <VerticalNavHeader {...props} />
       <StyledBoxForShadow
+        className='for-hidden-sidebar'
         ref={shadowRef}
         sx={{
           background: `linear-gradient(${theme.palette.background.default} 40%,${hexToRGBA(
