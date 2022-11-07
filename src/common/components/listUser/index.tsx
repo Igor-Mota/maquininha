@@ -52,7 +52,7 @@ export const ListUser = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <Modal
+      {/* <Modal
         isOpen={false}
         style={{
           overlay: {
@@ -70,7 +70,7 @@ export const ListUser = () => {
         }}
       >
         <EditUser />
-      </Modal>
+      </Modal> */}
     </div>
   )
 }
