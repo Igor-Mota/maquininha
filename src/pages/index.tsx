@@ -2,7 +2,8 @@
 
 import { ChangeEvent, FormEvent, MouseEvent, ReactHTMLElement, ReactNode, useEffect, useState } from 'react'
 import { apiLogin } from '../framework/auth/useLogin'
-import { parseCookies, setCookie } from 'nookies'
+import { parseCookies, setCookie, destroyCookie } from 'nookies'
+import { fetcher } from 'src/framework/auth/useRefreshToken'
 
 // ** Next Imports
 import Link from 'next/link'
@@ -12,7 +13,6 @@ import { useRouter } from 'next/router'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
-import Checkbox from '@mui/material/Checkbox'
 import TextField from '@mui/material/TextField'
 import InputLabel from '@mui/material/InputLabel'
 import Typography from '@mui/material/Typography'
@@ -26,10 +26,7 @@ import InputAdornment from '@mui/material/InputAdornment'
 import MuiFormControlLabel, { FormControlLabelProps } from '@mui/material/FormControlLabel'
 
 // ** Icons Imports
-import Google from 'mdi-material-ui/Google'
-import Github from 'mdi-material-ui/Github'
-import Twitter from 'mdi-material-ui/Twitter'
-import Facebook from 'mdi-material-ui/Facebook'
+
 import EyeOutline from 'mdi-material-ui/EyeOutline'
 import EyeOffOutline from 'mdi-material-ui/EyeOffOutline'
 
@@ -41,7 +38,6 @@ import BlankLayout from 'src/@core/layouts/BlankLayout'
 
 // ** Demo Imports
 import FooterIllustrationsV1 from 'src/views/pages/auth/FooterIllustration'
-import { redirect } from 'next/dist/server/api-utils'
 
 interface State {
   password: string
@@ -66,11 +62,10 @@ const FormControlLabel = styled(MuiFormControlLabel)<FormControlLabelProps>(({ t
   }
 }))
 
-const LoginPage = () => {
-  useEffect(() => {
-    const { authorization } = parseCookies()
-    if (authorization) router.push('/dashboard')
-  }, [])
+const LoginPage = ({ destroy }: any) => {
+  if (destroy) {
+    destroyCookie(null, 'authorization')
+  }
 
   // ** State
   const [values, setValues] = useState<State>({
@@ -98,6 +93,7 @@ const LoginPage = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const { data, status } = await apiLogin({ username, password: values.password })
+
     if (status === 200) {
       setCookie(null, 'authorization', `Bearer ${data.data.token}`)
       router.push('/dashboard')
@@ -237,10 +233,30 @@ const LoginPage = () => {
 
 LoginPage.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>
 
-export default LoginPage
-export const gerServerSideProps = (ctx: any) => {
+export async function getServerSideProps(ctx: any) {
   const { authorization } = parseCookies(ctx)
+
+  const { status } = await fetcher(authorization)
+
+  if (status === 200) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: `/dashboard`
+      }
+    }
+  }
+  if (status !== 200) {
+    return {
+      props: {
+        destroy: true
+      }
+    }
+  }
+
   return {
-    props: { authorization }
+    props: {}
   }
 }
+
+export default LoginPage

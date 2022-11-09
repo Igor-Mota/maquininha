@@ -4,12 +4,13 @@ import { useSession } from 'src/@core/hooks/useSession'
 import { ComponentBar } from 'src/common/components/componentBar'
 import { NewReport } from 'src/common/components/newReport'
 import { ListReports } from 'src/common/components/listReports'
+import { fetcher } from 'src/framework/auth/useRefreshToken'
+import { parseCookies } from 'nookies'
 
 const items = [{ name: 'Novo' }, { name: 'Listar' }]
 
 const Filters = () => {
   const [screen, setScreen] = useState('Novo')
-  useSession()
 
   return (
     <Box flexDirection='column' width='100%'>
@@ -20,6 +21,25 @@ const Filters = () => {
       </Box>
     </Box>
   )
+}
+
+export async function getServerSideProps(ctx: any) {
+  const { authorization } = parseCookies(ctx)
+
+  const { status } = await fetcher(authorization)
+
+  if (status !== 200) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: `/`
+      }
+    }
+  } else {
+    return {
+      props: {}
+    }
+  }
 }
 
 export default Filters

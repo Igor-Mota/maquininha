@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
-import { parseCookies } from 'nookies'
+import { fetcher } from 'src/framework/auth/useRefreshToken'
 import { useSession } from '../../@core/hooks/useSession'
+import { parseCookies } from 'nookies'
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 import { Box, IconButton } from '@mui/material'
@@ -16,7 +17,7 @@ import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
 
 const Dashboard = ({ props }: any) => {
   const { push } = useRouter()
-  useSession()
+
   return (
     <ApexChartWrapper>
       <Box ml={25} mt={10}>
@@ -32,11 +33,23 @@ const Dashboard = ({ props }: any) => {
   )
 }
 
-export default Dashboard
-
-export const gerServerSideProps = (ctx: any) => {
+export async function getServerSideProps(ctx: any) {
   const { authorization } = parseCookies(ctx)
-  return {
-    props: { authorization }
+
+  const { data, status } = await fetcher(authorization)
+
+  if (status !== 200) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: `/`
+      }
+    }
+  } else {
+    return {
+      props: {}
+    }
   }
 }
+
+export default Dashboard

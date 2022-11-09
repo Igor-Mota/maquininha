@@ -24,7 +24,6 @@ export const NewReport = () => {
     formState: { errors }
   } = useForm({ resolver: yupResolver(createReport) })
 
-  console.log(data)
   const handleCreateReport = async (data: any) => {
     mutate(data)
     reset()
