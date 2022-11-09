@@ -25,7 +25,7 @@ import { number } from 'yup'
 
 function formatUrl(init?: string, end?: string, number?: string) {
   const url = new URL('https://maquininhasas.herokuapp.com/report')
-  console.log(url)
+
   if (init) url.searchParams.append('init', init)
   if (end) url.searchParams.append('end', end)
   if (number) url.searchParams.append('number', number)
