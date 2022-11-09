@@ -22,7 +22,7 @@ const Dashboard = ({ props }: any) => {
       <Box ml={25} mt={10}>
         <Grid container spacing={6}>
           <Grid container spacing={6}>
-            <IconButton onClick={() => push('/filter')}>
+            <IconButton onClick={() => push('/reports')}>
               <AiTwotoneCalendar color='red' size={50} />
             </IconButton>
           </Grid>

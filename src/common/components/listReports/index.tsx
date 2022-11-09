@@ -50,7 +50,7 @@ export const ListReports = () => {
   const { data, isLoading } = useQuery([API_ENDPOINTS.report], fetcher)
 
   const handleSearch = () => {
-    queryClient.invalidateQueries(API_ENDPOINTS.report)
+    queryClient.fetchQuery(API_ENDPOINTS.report)
   }
 
   if (isLoading || !data) return <></>
