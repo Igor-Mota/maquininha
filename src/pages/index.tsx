@@ -95,7 +95,7 @@ const LoginPage = ({ destroy }: any) => {
     const { data, status } = await apiLogin({ username, password: values.password })
 
     if (status === 200) {
-      setCookie(null, 'authorization', `Bearer ${data.data.token}`, { maxAge: 30 })
+      setCookie(null, 'authorization', `Bearer ${data.data.token}`, { maxAge: 60 * 60 })
       router.push('/dashboard')
     }
   }

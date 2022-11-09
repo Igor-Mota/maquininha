@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router'
 import { fetcher } from 'src/framework/auth/useRefreshToken'
-import { useSession } from '../../@core/hooks/useSession'
 import { parseCookies } from 'nookies'
 // ** MUI Imports
 import Grid from '@mui/material/Grid'

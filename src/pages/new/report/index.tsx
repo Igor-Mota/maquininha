@@ -1,20 +1,17 @@
 import { useState } from 'react'
-import { useSession } from 'src/@core/hooks/useSession'
+
 import { Box, Card, Typography, TextField, Button } from '@mui/material'
 import { addNewReport } from '../../../framework/report/addnewReport'
 
 type State = string | undefined
 
 const newReport = () => {
-  useSession()
-
   const [machine, setMachine] = useState<State>()
   const [value, setValue] = useState<State>()
 
   const handleCreateReport = async () => {
     if (machine && value) {
       const response = await addNewReport({ machine, value })
-      console.log(response)
     }
   }
 

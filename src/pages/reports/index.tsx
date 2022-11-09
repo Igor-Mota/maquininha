@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Box } from '@mui/material'
-import { useSession } from 'src/@core/hooks/useSession'
+
 import { ComponentBar } from 'src/common/components/componentBar'
 import { NewReport } from 'src/common/components/newReport'
 import { ListReports } from 'src/common/components/listReports'

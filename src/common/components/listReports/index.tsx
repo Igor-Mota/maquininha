@@ -23,8 +23,8 @@ import { dateFormat } from 'src/utils'
 
 function formatUrl(init?: string, end?: string, number?: string) {
   const url = new URL('https://maquininhasas.herokuapp.com/report')
-  if (init) url.searchParams.append('init', init)
-  if (end) url.searchParams.append('end', end)
+  if (init) url.searchParams.append('init', new Date(init.toString()).getTime().toString())
+  if (end) url.searchParams.append('end', new Date(end.toString()).getTime().toString())
   if (number) url.searchParams.append('number', number)
 
   return url.href
