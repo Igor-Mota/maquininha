@@ -8,6 +8,7 @@ import { AuthContext } from 'src/@core/context/AuthContext'
 import { ToastContainer } from 'react-toastify'
 // ** Loader Import
 import NProgress from 'nprogress'
+import { queryClient } from 'src/framework/http/http'
 
 // ** Emotion Imports
 import { CacheProvider } from '@emotion/react'
@@ -77,7 +78,7 @@ const App = (props: ExtendedAppProps) => {
       </Head>
       <AuthContext>
         <SettingsProvider>
-          <QueryClientProvider client={new QueryClient()}>
+          <QueryClientProvider client={queryClient}>
             <SettingsConsumer>
               {({ settings }) => {
                 return <ThemeComponent settings={settings}>{getLayout(<Component {...pageProps} />)}</ThemeComponent>

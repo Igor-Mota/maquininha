@@ -3,10 +3,7 @@ import { http } from '../http/http'
 import { API_ENDPOINTS } from '../http/utils/endpoints'
 
 export const fetcher = async () => {
-  const {
-    data: { data },
-    status
-  } = await http.get(API_ENDPOINTS.getLatest)
+  const { data, status } = await http.get(API_ENDPOINTS.report)
   return {
     data,
     status
@@ -14,5 +11,6 @@ export const fetcher = async () => {
 }
 
 export const useGetLatestReports = () => {
-  return useQuery([API_ENDPOINTS.getLatest], fetcher)
+  //@ts-ignore
+  return useQuery([API_ENDPOINTS.report, { init: '', end: '', number: '' }], fetcher)
 }

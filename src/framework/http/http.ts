@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { parseCookies } from 'nookies'
+import { QueryClient } from 'react-query'
 
 const http = axios.create({
   baseURL: 'https://maquininhasas.herokuapp.com'
@@ -11,5 +12,6 @@ http.interceptors.request.use(cfg => {
 
   return cfg
 })
+const queryClient = new QueryClient()
 
-export { http }
+export { http, queryClient }
