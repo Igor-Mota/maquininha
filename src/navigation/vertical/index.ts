@@ -13,11 +13,11 @@ const navigation = (): VerticalNavItemsType => {
       icon: HomeOutline,
       path: '/dashboard'
     },
-    {
-      title: 'users',
-      icon: Account,
-      path: '/user'
-    },
+    // {
+    //   title: 'users',
+    //   icon: Account,
+    //   path: '/user'
+    // },
     {
       title: 'Relatorios',
       icon: FileDocumentMultiple,
