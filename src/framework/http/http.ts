@@ -7,7 +7,6 @@ const http = axios.create({
 })
 
 http.interceptors.request.use(cfg => {
-  console.log(parseCookies())
   //@ts-ignore
   cfg.headers['authorization'] = parseCookies().authorization
 

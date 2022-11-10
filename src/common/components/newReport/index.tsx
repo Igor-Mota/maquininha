@@ -1,16 +1,18 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Card, Button, TextField, Grid, Typography, Box, Select, MenuItem } from '@mui/material'
 import { toast } from 'react-toastify'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { createReport } from 'src/common/rules/validations'
 import { useCreateReport } from 'src/framework/report/useCreateReport'
+import { useAuthContext } from 'src/@core/hooks/useAuthContext'
 import 'react-toastify/dist/ReactToastify.css'
 
 export const NewReport = () => {
   //
+  const { user } = useAuthContext()
   const { mutate, data, status, isLoading } = useCreateReport()
-
+  const [showInitial_enter, setShowInitialEnter] = useState(false)
   useEffect(() => {
     if (data?.status == 201) {
       toast.success('Relatorio adicionado com sucesso')
@@ -28,7 +30,10 @@ export const NewReport = () => {
     mutate(data)
     reset()
   }
-
+  const show = () => {
+    if (user?.level === 'admin' || user?.level === 'root') return true
+    return false
+  }
   return (
     <Card
       sx={{
@@ -56,16 +61,7 @@ export const NewReport = () => {
             </Box>
             <TextField autoFocus fullWidth {...register('store')} />
           </Grid>
-          <Grid item xs={12}>
-            <Box display='flex' flexDirection='row' alignItems='center' justifyContent='flex-start' mb={4}>
-              <Typography variant='body2'>Entrada final</Typography>
-              <Typography variant='body2' color='red'>
-                {errors.final_enter?.message}
-              </Typography>
-            </Box>
-            <TextField autoFocus fullWidth {...register('final_enter')} />
-          </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={6}>
             <Box display='flex' flexDirection='row' alignItems='center' justifyContent='flex-start' mb={4}>
               <Typography variant='body2'>Numero da maquina</Typography>
               <Typography variant='body2' color='red'>
@@ -74,7 +70,7 @@ export const NewReport = () => {
             </Box>
             <TextField autoFocus fullWidth {...register('machine')} />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={6}>
             <Box display='flex' flexDirection='row' alignItems='center' justifyContent='flex-start' mb={4}>
               <Typography variant='body2'>Jogo</Typography>
               <Typography variant='body2' color='red'>
@@ -83,7 +79,40 @@ export const NewReport = () => {
             </Box>
             <TextField autoFocus fullWidth {...register('game')} />
           </Grid>
-          <Grid item xs={12}>
+          {show() && (
+            <Grid item xs={6}>
+              <>
+                <Box display='flex' flexDirection='row' alignItems='center' justifyContent='flex-start' mb={4}>
+                  <Typography variant='body2'>Entrada inicial</Typography>
+                  <Typography variant='body2' color='red'>
+                    {errors.final_enter?.message}
+                  </Typography>
+                </Box>
+                <TextField autoFocus fullWidth {...register('initial_enter')} />
+              </>
+            </Grid>
+          )}
+          <Grid item xs={6}>
+            <Box display='flex' flexDirection='row' alignItems='center' justifyContent='flex-start' mb={4}>
+              <Typography variant='body2'>Entrada final</Typography>
+              <Typography variant='body2' color='red'>
+                {errors.final_enter?.message}
+              </Typography>
+            </Box>
+            <TextField autoFocus fullWidth {...register('final_enter')} />
+          </Grid>
+          {show() && (
+            <Grid item xs={6}>
+              <Box display='flex' flexDirection='row' alignItems='center' justifyContent='flex-start' mb={4}>
+                <Typography variant='body2'>Saida inicial</Typography>
+                <Typography variant='body2' color='red'>
+                  {errors.final_enter?.message}
+                </Typography>
+              </Box>
+              <TextField autoFocus fullWidth {...register('initial_out')} />
+            </Grid>
+          )}
+          <Grid item xs={6}>
             <Box display='flex' flexDirection='row' alignItems='center' justifyContent='flex-start' mb={4}>
               <Typography variant='body2'>Saida final</Typography>
               <Typography variant='body2' color='red'>

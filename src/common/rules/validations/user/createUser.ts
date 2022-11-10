@@ -5,5 +5,5 @@ export const createUser = object({
   password: string().required(' : Senha e obrigatoria'),
   name: string().required(' : Nome e obrigatorio'),
   repeatPassword: string().required(': Repetir senha e obrigatorio'),
-  level: mixed().oneOf(['admin', 'manager', 'attendant'])
+  level: mixed().oneOf(['admin', 'manager', 'attendant', 'client'])
 })

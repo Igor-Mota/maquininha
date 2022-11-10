@@ -59,7 +59,7 @@ export const NewUser = () => {
       </Typography>
       <form onSubmit={handleSubmit(handleCreateUser)}>
         <Grid container spacing={12} px={10}>
-          <Grid item xs={12}>
+          <Grid item xs={6}>
             <Box display='flex' flexDirection='row' alignItems='center' justifyContent='flex-start' mb={4}>
               <Typography variant='body2'>Nome de usuario</Typography>
               <Typography variant='body2' color='red'>
@@ -68,7 +68,7 @@ export const NewUser = () => {
             </Box>
             <TextField autoFocus fullWidth {...register('username')} />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={6}>
             <Box display='flex' flexDirection='row' alignItems='center' justifyContent='flex-start' mb={4}>
               <Typography variant='body2'>Nome</Typography>
               <Typography variant='body2' color='red'>
@@ -77,7 +77,7 @@ export const NewUser = () => {
             </Box>
             <TextField autoFocus fullWidth {...register('name')} />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={6}>
             <Box display='flex' flexDirection='row' alignItems='center' justifyContent='flex-start' mb={4}>
               <Typography variant='body2'>Senha</Typography>
               <Typography variant='body2' color='red'>
@@ -86,7 +86,7 @@ export const NewUser = () => {
             </Box>
             <TextField autoFocus fullWidth {...register('password')} />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={6}>
             <Box display='flex' flexDirection='row' alignItems='center' justifyContent='flex-start' mb={4}>
               <Typography variant='body2'>Repetir senha</Typography>
               <Typography variant='body2' color='red'>
@@ -95,7 +95,7 @@ export const NewUser = () => {
             </Box>
             <TextField autoFocus fullWidth {...register('repeatPassword')} />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={6}>
             <Box display='flex' flexDirection='row' alignItems='center' justifyContent='flex-start' mb={4}>
               <Typography variant='body2'>Cargo</Typography>
               <Typography variant='body2' color='red'>
@@ -105,6 +105,7 @@ export const NewUser = () => {
             <Select defaultValue='attendant' autoFocus fullWidth {...register('level')}>
               <MenuItem value='admin'>Administrador</MenuItem>
               <MenuItem value='manager'>Gerente</MenuItem>
+              <MenuItem value='client'>Client</MenuItem>
               <MenuItem value='attendant' defaultChecked={true}>
                 Atendente
               </MenuItem>

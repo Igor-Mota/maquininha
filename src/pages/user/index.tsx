@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Box } from '@mui/material'
+import { parseCookies } from 'nookies'
 import { fetcher } from 'src/framework/auth/useRefreshToken'
 import { ComponentBar } from 'src/common/components/componentBar'
 import { NewUser } from 'src/common/components/newUser'
@@ -22,19 +23,23 @@ const Users = () => {
 }
 
 export async function getServerSideProps(ctx: any) {
-  const { data, status } = await fetcher()
-  if (data.response.data.success === false) {
+  const { authorization } = parseCookies(ctx)
+
+  const { status } = await fetcher(authorization)
+
+  if (status !== 200) {
     return {
       redirect: {
         permanent: false,
         destination: `/`
       }
     }
-  }
-
-  return {
-    props: {}
+  } else {
+    return {
+      props: {}
+    }
   }
 }
+// }
 
 export default Users

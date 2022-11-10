@@ -6,11 +6,13 @@ import { NewReport } from 'src/common/components/newReport'
 import { ListReports } from 'src/common/components/listReports'
 import { fetcher } from 'src/framework/auth/useRefreshToken'
 import { parseCookies } from 'nookies'
+import { useAuthContext } from 'src/@core/hooks/useAuthContext'
 
 const items = [{ name: 'Novo' }, { name: 'Listar' }]
 
 const Filters = () => {
   const [screen, setScreen] = useState('Novo')
+  const { user } = useAuthContext()
 
   return (
     <Box flexDirection='column' width='100%'>

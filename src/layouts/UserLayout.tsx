@@ -20,6 +20,8 @@ import VerticalAppBarContent from './components/vertical/AppBarContent'
 // ** Hook Import
 import { useSettings } from 'src/@core/hooks/useSettings'
 
+import { useAuthContext } from 'src/@core/hooks/useAuthContext'
+
 interface Props {
   children: ReactNode
 }

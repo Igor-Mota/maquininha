@@ -24,6 +24,7 @@ import { styled, useTheme } from '@mui/material/styles'
 import MuiCard, { CardProps } from '@mui/material/Card'
 import InputAdornment from '@mui/material/InputAdornment'
 import MuiFormControlLabel, { FormControlLabelProps } from '@mui/material/FormControlLabel'
+import { useAuthContext } from 'src/@core/hooks/useAuthContext'
 
 // ** Icons Imports
 
@@ -75,9 +76,11 @@ const LoginPage = ({ destroy }: any) => {
   const [username, setUsername] = useState('')
 
   // ** Hook
+
   const theme = useTheme()
   const router = useRouter()
 
+  const { setUser } = useAuthContext()
   const handleChange = (prop: keyof State) => (event: ChangeEvent<HTMLInputElement>) => {
     setValues({ ...values, [prop]: event.target.value })
   }
@@ -95,7 +98,10 @@ const LoginPage = ({ destroy }: any) => {
     const { data, status } = await apiLogin({ username, password: values.password })
 
     if (status === 200) {
-      setCookie(null, 'authorization', `Bearer ${data.data.token}`, { maxAge: 60 * 60 })
+      setUser && setUser(data.data)
+      setCookie(null, 'authorization', `Bearer ${data.data.token}`, {
+        path: '/'
+      })
       router.push('/dashboard')
     }
   }
