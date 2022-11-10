@@ -57,9 +57,10 @@ export const EditUser = ({ user }: Props) => {
       setError('repeatPassword', { type: 'onChange', message: ': O campo senha e repetir senha nao sao iguais' })
     }
 
-    console.log(data)
-
-    mutate(data)
+    const { machines, stores, ...rest } = data
+    const payload = { ...rest, machines: machines.split(','), stores: stores.split(',') }
+    console.log(payload)
+    mutate(payload)
   }
 
   return (
